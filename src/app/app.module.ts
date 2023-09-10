@@ -9,22 +9,22 @@ import { APP_CONFIG, APP_SERVICE_CONFIG } from './core/AppConfig/appconfig.servi
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    CoreFeaturesModule,
-    FeaturesModule
-  ],
-  providers: [
-    {
-      provide: APP_SERVICE_CONFIG,
-      useValue: APP_CONFIG
-    }
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent
+    ],
+    providers: [
+        {
+            provide: APP_SERVICE_CONFIG,
+            useValue: APP_CONFIG
+        }
+    ],
+    bootstrap: [AppComponent],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        CoreFeaturesModule,
+        FeaturesModule,
+    ]
 })
 export class AppModule { }
