@@ -7,6 +7,10 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
+  /**
+   * TODO - Write logic to make the add user button disabled when the user is being added
+   * 
+   */
   isAddingUser = false;
 
   private route = Inject(ActivatedRoute);
