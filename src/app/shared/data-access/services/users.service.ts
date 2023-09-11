@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
 import { APP_SERVICE_CONFIG } from '../../../core/AppConfig/appconfig.service';
 import { AppConfig } from '../../../core/AppConfig/appconfig.interface';
 import { Observable } from 'rxjs';
@@ -14,8 +14,14 @@ export class UsersService {
     private http: HttpClient
     ) { }
     
-    getUsers(): Observable<User[]> {
-      return this.http.get<User[]>(this.config.apiEndpoint);
+    getUsers(): Observable<HttpEvent<User[]>> {
+      const request = new HttpRequest(
+        'GET',
+        `${this.config.apiEndpoint}/users`,
+        {
+          reportProgress: true,
+        });
+      return this.http.request<User[]>(request);
   }
 }
 

@@ -7,6 +7,7 @@ import { FeaturesModule } from './features/features.module';
 import { CoreFeaturesModule } from './core/core-features/core-features.module';
 import { APP_CONFIG, APP_SERVICE_CONFIG } from './core/AppConfig/appconfig.service';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
     declarations: [
@@ -22,9 +23,10 @@ import { HttpClientModule } from '@angular/common/http';
     imports: [
         BrowserModule,
         AppRoutingModule,
+        BrowserAnimationsModule,
         HttpClientModule,
         CoreFeaturesModule,
-        FeaturesModule,
+        FeaturesModule
     ]
 })
 export class AppModule { }

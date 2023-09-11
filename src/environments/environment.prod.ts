@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    apiEndpoint: 'https://fakestoreapi.com/users'
+    apiEndpoint: 'https://fakestoreapi.com'
 };

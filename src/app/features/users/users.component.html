@@ -14,7 +14,7 @@
         <div></div>
     </div>
     <div class="flex flex-col container mx-auto space-y-6 px-8 text-center mt-2 sm:w-auto">
-        <ng-container *ngIf="users$ | async as users">
+        <ng-container *ngIf="users">
             <div *ngFor="let user of users" class="flex w-100 justify-between rounded-lg px-3 py-6 bg-slate-50 text-black">
                 <div class="">
                     {{ user.name.firstname }}
@@ -35,4 +35,7 @@
             </div>
         </ng-container>
     </div>
+    <ngx-spinner type="ball-scale-multiple">
+        <p class="text-black">Please wait...</p>
+    </ngx-spinner>
 </section>
