@@ -1,6 +1,6 @@
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { Component, OnInit, Renderer2 } from '@angular/core';
-import { Subject, Subscription } from 'rxjs';
+import { Subject, Subscription, filter, tap } from 'rxjs';
 import { SpinnerService } from 'src/app/core/core-services/spinner.service';
 import { UsersService } from 'src/app/shared/data-access/services/users.service';
 import { User } from 'src/app/shared/data-access/types/User';
@@ -58,7 +58,9 @@ export class UsersComponent implements OnInit {
   deleteUser(user: User): void {}
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
 }
