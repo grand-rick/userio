@@ -25,8 +25,12 @@
                 <div class="">
                     {{ user.address.city }}
                 </div>
-                <div>
-                    <img src="assets/icons/more_horiz_black.svg" class="cursor-pointer hover:bg-slate-300 hover:rounded-lg" alt="">
+                <div class="dropdown">
+                    <img src="assets/icons/more_horiz_black.svg" class="cursor-pointer px-1 hover:bg-slate-300 hover:rounded-lg active:bg-indigo-600 active:text-white" alt="more">
+                    <ul class="flex items-center justify-center list-none hidden dropdown-content rounded-lg">
+                        <li class="mx-2.5"><a routerLink="/" class="no-underline text-black py-3 font-bold hover:text-sky-700">Edit</a></li>
+                        <li class="mx-2.5"><a routerLink="/" class="no-underline text-black py-3 font-bold hover:text-sky-700">Delete</a></li>
+                    </ul>
                 </div>
             </div>
         </ng-container>
