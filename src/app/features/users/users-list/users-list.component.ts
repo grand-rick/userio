@@ -1,10 +1,16 @@
-import { Component } from '@angular/core';
+import { HttpEvent, HttpEventType } from '@angular/common/http';
+import { Component, Input, OnInit } from '@angular/core';
+import { User } from 'src/app/shared/data-access/types/User';
 
 @Component({
-  selector: 'app-users-list',
+  selector: 'users-list',
   templateUrl: './users-list.component.html',
   styleUrls: ['./users-list.component.scss']
 })
-export class UsersListComponent {
+export class UsersListComponent implements OnInit {
+  @Input({required: true}) users: User[] = [];
 
+  constructor() {}
+
+  ngOnInit(): void {}
 }

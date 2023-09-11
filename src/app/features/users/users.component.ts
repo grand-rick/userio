@@ -1,5 +1,6 @@
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Subject, Subscription } from 'rxjs';
 import { SpinnerService } from 'src/app/core/core-services/spinner.service';
 import { UsersService } from 'src/app/shared/data-access/services/users.service';
 import { User } from 'src/app/shared/data-access/types/User';
@@ -14,8 +15,8 @@ export class UsersComponent implements OnInit {
    * TODO: Remove all comments from this file.
    * 
    */
-  users$ = this.usersService.getUsers();
   users: User[] = [];
+  private subscription: Subscription = new Subscription();
 
   constructor(private usersService: UsersService, private renderer: Renderer2, private spinner: SpinnerService) {}
 
@@ -25,7 +26,7 @@ export class UsersComponent implements OnInit {
 
   ngOnInit(): void {
     this.spinner.show();
-    this.users$.subscribe((event: HttpEvent<User[]>) => {
+    this.subscription = this.usersService.getUsers().subscribe((event: HttpEvent<User[]>) => {
       switch (event.type) {
         // case HttpEventType.Sent:
         //   console.log('Request sent!');
@@ -37,7 +38,7 @@ export class UsersComponent implements OnInit {
         //   console.log('Downloaded!');
         //   break;
         case HttpEventType.Response:
-          this.users = event.body!;
+          this.users = event.body as User[];
           this.spinner.hide();
           break;
       }
@@ -55,5 +56,9 @@ export class UsersComponent implements OnInit {
   editUser(user: User): void {}
 
   deleteUser(user: User): void {}
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 
 }
