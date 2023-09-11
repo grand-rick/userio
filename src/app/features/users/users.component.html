@@ -1,40 +1,31 @@
 <section id="users">
-    <!-- Flex Container -->
-    <!-- User Heading -->
-    <div class="flex container mx-auto justify-between text-center px-8 sm:w-auto sm:text-left">
-        <div class="">
-            User
-        </div>
-        <div class="">
-            Email
-        </div>
-        <div class="">
-            Role
-        </div>
-        <div></div>
-    </div>
-    <div class="flex flex-col container mx-auto space-y-6 px-8 text-center mt-2 sm:w-auto">
-        <ng-container *ngIf="users">
-            <div *ngFor="let user of users" class="flex w-100 justify-between rounded-lg px-3 py-6 bg-slate-50 text-black">
-                <div class="">
-                    {{ user.name.firstname }}
-                </div>
-                <div class="">
-                    {{ user.email }}
-                </div>
-                <div class="">
-                    {{ user.address.city }}
-                </div>
-                <div class="dropdown">
-                    <img src="assets/icons/more_horiz_black.svg" class="cursor-pointer px-1 hover:bg-slate-300 hover:rounded-lg active:bg-indigo-600 active:text-white" alt="more">
-                    <ul class="flex items-center justify-center list-none hidden dropdown-content rounded-lg">
-                        <li class="mx-2.5"><a routerLink="/" class="no-underline text-black py-3 font-bold hover:text-sky-700">Edit</a></li>
-                        <li class="mx-2.5"><a routerLink="/" class="no-underline text-black py-3 font-bold hover:text-sky-700">Delete</a></li>
-                    </ul>
-                </div>
-            </div>
-        </ng-container>
-    </div>
+    <table class="flex flex-col container mx-auto justify-between text-center sm:text-left">
+        <thead>
+            <tr class="flex justify-between text-center px-8 sm:w-auto sm:text-left">
+                <th>User</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody class="flex flex-col space-y-6 px-8 text-center mt-2 sm:w-auto">
+            <ng-container *ngIf="users">
+                    <tr *ngFor="let user of users" class="flex w-100 justify-between rounded-lg px-3 py-6 bg-slate-50 text-black">
+                        <td>{{ user.name.firstname }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.address.number }}</td>
+                        <td class="dropdown">
+                            <img src="assets/icons/more_horiz_black.svg" class="cursor-pointer px-1 hover:bg-slate-300 hover:rounded-lg active:bg-indigo-600 active:text-white" alt="more">
+                            <ul class="flex items-center justify-center list-none hidden dropdown-content rounded-lg">
+                                <li class="mx-2.5"><a routerLink="/" class="no-underline text-black py-3 font-bold hover:text-sky-700">Edit</a></li>
+                                <li class="mx-2.5"><a routerLink="/" class="no-underline text-black py-3 font-bold hover:text-sky-700">Delete</a></li>
+                            </ul>
+                        </td>
+                    </tr>
+            </ng-container>
+        </tbody>
+    </table>
+
     <ngx-spinner type="ball-scale-multiple">
         <p class="text-black">Please wait...</p>
     </ngx-spinner>
