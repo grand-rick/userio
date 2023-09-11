@@ -15,6 +15,7 @@ export class UsersComponent implements OnInit {
    * TODO: Remove all comments from this file.
    * 
    */
+  users$ = this.usersService.getUsers();
   users: User[] = [];
   private subscription: Subscription = new Subscription();
 

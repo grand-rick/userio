@@ -1,5 +1,5 @@
 <section id="users">
-    <users-list *ngIf="users.length; else elseBlock" [users]="users"></users-list>
+    <users-list *ngIf="users.length; else elseBlock" [users]="users" [test]="users$"></users-list>
 
     <ng-template #elseBlock>
         <div>
