@@ -1,7 +1,7 @@
 <section id="users">
     <!-- Flex Container -->
     <!-- User Heading -->
-    <div class="flex container mx-auto justify-between text-center px-8 min-w-max sm:text-left">
+    <div class="flex container mx-auto justify-between text-center px-8 sm:w-auto sm:text-left">
         <div class="">
             User
         </div>
@@ -13,21 +13,20 @@
         </div>
         <div></div>
     </div>
-    <div class="flex flex-col container mx-auto space-y-6 px-8 text-left">
+    <div class="flex flex-col container mx-auto space-y-6 px-8 text-center mt-2 sm:w-auto">
         <ng-container *ngIf="users$ | async as users">
-            <div *ngFor="let user of users" class="flex w-100 justify-between">
+            <div *ngFor="let user of users" class="flex w-100 justify-between rounded-lg px-3 py-6 bg-slate-50 text-black">
                 <div class="">
-                    {{ user.username }}
+                    {{ user.name.firstname }}
                 </div>
                 <div class="">
                     {{ user.email }}
                 </div>
                 <div class="">
-                    {{ user.id }}
+                    {{ user.address.city }}
                 </div>
                 <div>
-                    <button class="btn btn-primary" (click)="editUser(user)">Edit</button>
-                    <button class="btn btn-danger" (click)="deleteUser(user)">Delete</button>
+                    <img src="assets/icons/more_horiz_black.svg" class="cursor-pointer hover:bg-slate-300 hover:rounded-lg" alt="">
                 </div>
             </div>
         </ng-container>
