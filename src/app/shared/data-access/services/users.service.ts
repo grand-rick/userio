@@ -34,6 +34,7 @@ export class UsersService {
         firstname: newUser.firstName,
         lastname: 'lastname'
       },
+      role: newUser.role,
       phone: 'phone',
       __v: 0,
       address: {
@@ -43,7 +44,7 @@ export class UsersService {
         },
         city: 'string',
         street: 'string',
-        number: +newUser.role,
+        number: 0,
         zipcode: 'string'
       }
     }

@@ -7,6 +7,7 @@ export interface User {
     username: string;
     password: string;
     name:     Name;
+    role:     string;
     phone:    string;
     __v:      number;
 }
