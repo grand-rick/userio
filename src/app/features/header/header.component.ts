@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { UsersService } from 'src/app/shared/data-access/services/users.service';
 import { NewUser } from 'src/app/shared/data-access/types/User';
 
@@ -8,6 +8,7 @@ import { NewUser } from 'src/app/shared/data-access/types/User';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
+  @Output() addUserEvent = new EventEmitter();
   /**
    * TODO - Write logic to make the add user button disabled when the user is being added
    * 
@@ -22,6 +23,7 @@ export class HeaderComponent {
   }
 
   addNewUser(newUser: NewUser) {
-    this.usersService.addNewUser(newUser);
+    const addedUser = this.usersService.addNewUser(newUser);
+    this.addUserEvent.emit(addedUser);
   }
 }

@@ -24,7 +24,7 @@ export class UsersService {
       return this.http.request<User[]>(request);
   }
 
-  addNewUser(newUser: NewUser): Observable<HttpEvent<User>> {
+  addNewUser(newUser: NewUser): User {
     const addedUser: User = {
       id: 0,
       email: newUser.email,
@@ -47,14 +47,15 @@ export class UsersService {
         zipcode: 'string'
       }
     }
-    const request = new HttpRequest(
-      'POST',
-      `${this.config.apiEndpoint}/users`,
-      addedUser,
-      {
-        reportProgress: true
-      });
-    return this.http.request<User>(request);
+    // const request = new HttpRequest(
+    //   'POST',
+    //   `${this.config.apiEndpoint}/users`,
+    //   addedUser,
+    //   {
+    //     reportProgress: true
+    //   });
+    // return this.http.request<User>(request);
+    return addedUser;
   }
 
   deleteUser(id: number): Observable<HttpEvent<User>> {

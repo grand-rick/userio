@@ -11,6 +11,7 @@ import { User } from 'src/app/shared/data-access/types/User';
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit {
+  noUserMessage: string = '';
   getError$ = this.globals.errors.getError$;
   users$ = this.usersService.getUsers().pipe(
     catchError((err: HttpErrorResponse) => {
@@ -43,12 +44,12 @@ export class UsersComponent implements OnInit {
         //   break;
         case HttpEventType.Response:
           this.users = event.body as User[];
+          if (!event.body || this.users.length === 0) {
+            this.noUserMessage = 'No users found';
+          }
           this.globals.spinner.hide();
           break;
         default:
-          setTimeout(() => {
-            this.globals.spinner.hide();
-          }, 1000);
           break;
       }
     });
@@ -60,6 +61,10 @@ export class UsersComponent implements OnInit {
     //   dropdownContent?.classList.toggle('hidden');
     // });
     
+  }
+
+  addNewUser(user: User): void {
+    this.users.unshift(user);
   }
   
   editUser(user: User): void {}

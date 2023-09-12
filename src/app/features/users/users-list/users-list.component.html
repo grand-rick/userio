@@ -23,11 +23,11 @@
                     <img src="assets/icons/more_horiz_black.svg" class="cursor-pointer px-1 hover:bg-slate-300 hover:rounded-lg active:bg-indigo-600 active:text-white" alt="more">
                 </label>
                 <ul tabindex="0" class="dropdown-content z-[1] bg-primary-content menu p-2 shadow bg-base-100 rounded-box w-24 sm:w-48">
-                    <li (click)="showEditUserModal(addUserModal)"><a>Edit</a></li>
+                    <li (click)="showEditUserModal(editUserModal)"><a>Edit</a></li>
                     <li><a>Delete</a></li>
                 </ul>
             </td>
-            <dialog id="editUserModal" #addUserModal class="modal">            
+            <dialog id="editUserModal" #editUserModal class="modal">            
                 <edit-user-modal #addUserModal [user]="user" (editUser)="editUser($event)"></edit-user-modal>
             </dialog>
         </tr>

@@ -1,14 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { UsersModule } from './users/users.module';
-
+const features = [
+  CommonModule,
+]
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
-    UsersModule
-  ]
+  imports: [features],
+  exports: [features]
 })
 export class FeaturesModule { }

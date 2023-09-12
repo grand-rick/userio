@@ -8,6 +8,7 @@ import { UserComponent } from './user/user.component';
 
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { EditUserModalModule } from 'src/app/shared/ui/edit-user-modal/edit-user-modal.module';
+import { HeaderModule } from '../header/header.module';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { EditUserModalModule } from 'src/app/shared/ui/edit-user-modal/edit-user
     CommonModule,
     UsersRoutingModule,
     NgxSpinnerModule,
-    EditUserModalModule
+    EditUserModalModule,
+    HeaderModule
   ]
 })
 export class UsersModule { }
