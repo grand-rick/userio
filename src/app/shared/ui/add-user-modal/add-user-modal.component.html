@@ -2,10 +2,10 @@
   <form method="dialog">
     <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
   </form>
-  <form class="space-y-4">
-    <input type="text" name="name" id="name" placeholder="Name" class="input input-bordered w-full max-w-xs">
-    <input type="email" name="email" id="email" placeholder="Email" class="input input-bordered w-full max-w-xs">
-    <select class="select select-bordered w-full max-w-xs">
+  <form [formGroup]="addUserForm" class="space-y-4">
+    <input formControlName="firstName" type="text" name="firstName" id="firstName" placeholder="First Name" class="input input-bordered w-full max-w-xs">
+    <input formControlName="email" type="email" name="email" id="email" placeholder="Email" class="input input-bordered w-full max-w-xs">
+    <select formControlName="role" class="select select-bordered w-11/12 max-w-xs">
       <option disabled selected>Role</option>
       <option>Admin</option>
       <option>User</option>
@@ -13,7 +13,7 @@
   </form>
   <div class="modal-action">
       <form method="dialog">
-      <button class="btn">Add User</button>
+      <button class="btn" (click)="addUser()" >Add User</button>
       </form>
   </div>
 </div>
