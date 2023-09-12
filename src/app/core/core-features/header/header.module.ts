@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { HeaderComponent } from './header.component';
 import { RouterModule } from '@angular/router';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 const components = [
   HeaderComponent
@@ -12,7 +13,8 @@ const components = [
   declarations: [components],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    SharedModule
   ],
   exports: [components]
 })

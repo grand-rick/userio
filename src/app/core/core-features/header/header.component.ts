@@ -17,4 +17,7 @@ export class HeaderComponent {
 
   ngOnInit() { }
 
+  showAddUserModal(showAddUserModal: HTMLDialogElement) {
+    showAddUserModal.showModal();
+  }
 }

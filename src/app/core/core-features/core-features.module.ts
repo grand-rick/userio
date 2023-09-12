@@ -4,7 +4,7 @@ import { HeaderModule } from './header/header.module';
 
 const coreFeatures = [
     CommonModule,
-    HeaderModule
+    HeaderModule,
 ];
 
 @NgModule({

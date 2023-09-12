@@ -6,8 +6,10 @@ import { AppComponent } from './app.component';
 import { FeaturesModule } from './features/features.module';
 import { CoreFeaturesModule } from './core/core-features/core-features.module';
 import { APP_CONFIG, APP_SERVICE_CONFIG } from './core/AppConfig/appconfig.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RequestInterceptor } from './core/interceptors/request.interceptor';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
     declarations: [
@@ -17,6 +19,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
         {
             provide: APP_SERVICE_CONFIG,
             useValue: APP_CONFIG
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: RequestInterceptor,
+            multi: true
         }
     ],
     bootstrap: [AppComponent],
@@ -25,6 +32,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
         AppRoutingModule,
         BrowserAnimationsModule,
         HttpClientModule,
+        SharedModule,
         CoreFeaturesModule,
         FeaturesModule
     ]

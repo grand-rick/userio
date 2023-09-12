@@ -1,7 +1,7 @@
-import { HttpEvent, HttpEventType } from '@angular/common/http';
+import { HttpErrorResponse, HttpEvent, HttpEventType } from '@angular/common/http';
 import { Component, OnInit, Renderer2 } from '@angular/core';
-import { Subject, Subscription, filter, tap } from 'rxjs';
-import { SpinnerService } from 'src/app/core/core-services/spinner.service';
+import { Subscription, catchError, of } from 'rxjs';
+import { GlobalsService } from 'src/app/core/core-services/globals/globals.service';
 import { UsersService } from 'src/app/shared/data-access/services/users.service';
 import { User } from 'src/app/shared/data-access/types/User';
 
@@ -11,23 +11,26 @@ import { User } from 'src/app/shared/data-access/types/User';
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit {
-  /**
-   * TODO: Remove all comments from this file.
-   * 
-   */
-  users$ = this.usersService.getUsers();
+  getError$ = this.globals.errors.getError$;
+  users$ = this.usersService.getUsers().pipe(
+    catchError((err: HttpErrorResponse) => {
+      this.globals.errors.addError(err);
+      // this.globals.toast.error(err.message);
+      return of<HttpEvent<User[]>>([] as unknown as HttpEvent<User[]>);
+    })
+  );
   users: User[] = [];
   private subscription: Subscription = new Subscription();
 
-  constructor(private usersService: UsersService, private renderer: Renderer2, private spinner: SpinnerService) {}
+  constructor(private usersService: UsersService, private renderer: Renderer2, private globals: GlobalsService) {}
 
   // displayOptions(): void {
   //   this.renderer.addClass(dropdownContent, 'block');
   // }
 
   ngOnInit(): void {
-    this.spinner.show();
-    this.subscription = this.usersService.getUsers().subscribe((event: HttpEvent<User[]>) => {
+    this.globals.spinner.show();
+    this.subscription = this.users$.subscribe((event: HttpEvent<User[]>) => {
       switch (event.type) {
         // case HttpEventType.Sent:
         //   console.log('Request sent!');
@@ -40,7 +43,12 @@ export class UsersComponent implements OnInit {
         //   break;
         case HttpEventType.Response:
           this.users = event.body as User[];
-          this.spinner.hide();
+          this.globals.spinner.hide();
+          break;
+        default:
+          setTimeout(() => {
+            this.globals.spinner.hide();
+          }, 1000);
           break;
       }
     });
