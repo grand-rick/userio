@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NewUser } from '../../data-access/types/User';
 
 @Component({
@@ -7,7 +7,7 @@ import { NewUser } from '../../data-access/types/User';
   templateUrl: './add-user-modal.component.html',
   styleUrls: ['./add-user-modal.component.scss']
 })
-export class AddUserModalComponent {
+export class AddUserModalComponent implements OnInit {
   @Output() addUserEvent = new EventEmitter();
 
 
@@ -15,18 +15,28 @@ export class AddUserModalComponent {
     private fb: FormBuilder
   ) { }
 
-  addUserForm = this.fb.group({
-    firstName: ['', [
-      Validators.required
-    ]],
-    email: ['', [
-      Validators.required,
-      Validators.email
-    ]],
-    role: ['', [
-      Validators.required
-    ]]
-  });
+  addUserForm: FormGroup = new FormGroup({});
+
+  ngOnInit(): void {
+    this.addUserForm = this.fb.group({
+      firstName: ['', [
+        Validators.required,
+        Validators.minLength(2)
+      ]],
+      email: ['', [
+        Validators.required,
+        Validators.email
+      ]],
+      role: ['', [
+        Validators.required
+      ]]
+    });
+  }
+
+  handleError(controlName: string, errorName: string) {
+    const control = this.addUserForm.controls[controlName];
+    return (control.touched || control.dirty) && control.hasError(errorName);
+  }
 
   onSubmit() {
     // console.log(this.addUserForm.value);

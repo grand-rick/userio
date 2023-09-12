@@ -4,12 +4,43 @@
   </form>
   <form [formGroup]="addUserForm" class="space-y-4">
     <input formControlName="firstName" type="text" name="firstName" id="firstName" placeholder="First Name" class="input input-bordered w-full max-w-xs bg-primary-content text-black placeholder:text-black">
+    <!-- First Name Validation -->
+    <div class="text-red-500 text-sm" *ngIf="handleError('firstName', 'required')">
+      <div class="-mt-3">
+          First Name is required
+      </div>
+    </div>
+    <div class="text-red-500 text-sm" *ngIf="handleError('firstName', 'minlength')">
+      <div class="mt-0">
+          First Name should be more than 2 characters
+      </div>
+    </div>
+    <!-- End of First Name Validation -->
     <input formControlName="email" type="email" name="email" id="email" placeholder="Email" class="input input-bordered w-full max-w-xs bg-primary-content text-black placeholder:text-black">
+    <!-- Email Validation -->
+    <div class="text-red-500 text-sm" *ngIf="handleError('email', 'required')">
+      <div class="-mt-3">
+          Email is required
+      </div>
+    </div>
+    <div class="text-red-500 text-sm" *ngIf="handleError('email', 'email')">
+      <div class="mt-0">
+          Email should be valid
+      </div>
+    </div>
+    <!-- End of Email Validation -->
     <select formControlName="role" class="select select-bordered w-full max-w-xs bg-primary-content text-black placeholder:text-black">
       <option disabled selected>Role</option>
       <option>Admin</option>
       <option>User</option>
     </select>
+    <!-- Role Validation -->
+    <div class="text-red-500 text-sm" *ngIf="handleError('role', 'required')">
+      <div class="-mt-3">
+          Role is required
+      </div>
+    </div>
+    <!-- End of Role Validation -->
   </form>
   <div class="modal-action">
       <form method="dialog">

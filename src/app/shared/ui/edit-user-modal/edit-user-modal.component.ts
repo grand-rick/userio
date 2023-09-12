@@ -20,7 +20,8 @@ export class EditUserModalComponent {
   ngOnInit() : void {
     this.editUserForm = this.fb.group({
       firstName: [this.user.name.firstname, [
-        Validators.required
+        Validators.required,
+        Validators.minLength(2),
       ]],
       email: [this.user.email, [
         Validators.required,
@@ -30,6 +31,11 @@ export class EditUserModalComponent {
         Validators.required
       ]]
     });
+  }
+
+  handleError(controlName: string, errorName: string) {
+    const control = this.editUserForm.controls[controlName];
+    return (control.touched || control.dirty) && control.hasError(errorName);
   }
 
   onSubmit(): void {
