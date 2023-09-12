@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { NewUser } from '../../data-access/types/User';
 
 @Component({
   selector: 'add-user-modal',

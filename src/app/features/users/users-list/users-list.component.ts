@@ -1,6 +1,7 @@
-import { HttpEvent, HttpEventType, HttpResponse } from '@angular/common/http';
+import { HttpEvent } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
-import { Observable, filter, tap } from 'rxjs';
+import { Observable } from 'rxjs';
+import { UsersService } from 'src/app/shared/data-access/services/users.service';
 import { User } from 'src/app/shared/data-access/types/User';
 
 @Component({
@@ -12,7 +13,9 @@ export class UsersListComponent implements OnInit {
   @Input({required: true}) users: User[] = [];
   @Input() test!: Observable<HttpEvent<User[]>>;
 
-  constructor() {}
+  constructor(
+    private usersService: UsersService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -21,5 +24,14 @@ export class UsersListComponent implements OnInit {
   //     this.users = event.body as User[];
   //   }));
   // }
+
+  showEditUserModal(showAddUserModal: HTMLDialogElement) {
+    showAddUserModal.showModal();
+  }
+
+  editUser(user: User) {
+    this.usersService.editUser(user);
+    console.log(user);
+  }
 
 }
