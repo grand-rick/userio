@@ -1,4 +1,20 @@
 <section id="users">
+    <!-- Toast Messages -->
+    <div class="toast toast-top toast-end">
+        <div class="alert alert-info flex items-center justify-between" *ngIf="userEdited">
+            <img src="assets/icons/edit_black.svg" alt="">
+            <span>Edit successful!.</span>
+        </div>
+        <div class="alert alert-error flex items-center justify-between" *ngIf="userDeleted">
+            <img src="assets/icons/delete_black.svg" alt="">
+            <span>User deleted successfully!.</span>
+        </div>
+        <div class="alert alert-success flex items-center justify-between" *ngIf="userAdded">
+            <img src="assets/icons/person_add_black.svg" alt="">
+            <span>New user added!.</span>
+        </div>
+    </div>
+
     <app-header (addUserEvent)="addNewUser($event)"></app-header>
 
     <users-list *ngIf="users.length; else elseBlock" [users]="users" (editUserEvent)="editUser($event)" (deleteUserEvent)="deleteUser($event)"></users-list>

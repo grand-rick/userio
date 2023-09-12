@@ -11,6 +11,9 @@ import { User } from 'src/app/shared/data-access/types/User';
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit, OnDestroy {
+  userEdited: boolean = false;
+  userDeleted: boolean = false;
+  userAdded: boolean = false;
   getError$ = this.globals.errors.getError$;
   users$ = this.usersService.getUsers().pipe(
     catchError((err: HttpErrorResponse) => {
@@ -24,23 +27,10 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   constructor(private usersService: UsersService, private renderer: Renderer2, private globals: GlobalsService) {}
 
-  // displayOptions(): void {
-  //   this.renderer.addClass(dropdownContent, 'block');
-  // }
-
   ngOnInit(): void {
     this.globals.spinner.show();
     this.subscription = this.users$.subscribe((event: HttpEvent<User[]>) => {
       switch (event.type) {
-        // case HttpEventType.Sent:
-        //   console.log('Request sent!');
-        //   break;
-        // case HttpEventType.ResponseHeader:
-        //   console.log('Response received!');
-        //   break;
-        // case HttpEventType.DownloadProgress:
-        //   console.log('Downloaded!');
-        //   break;
         case HttpEventType.Response:
           this.users = event.body as User[];
           this.addUserRoles();
@@ -52,14 +42,6 @@ export class UsersComponent implements OnInit, OnDestroy {
           break;
       }
     });
-    // const dropdown = document.querySelector('.dropdown');
-
-    // dropdown?.addEventListener('click', () => {
-    //   const dropdownContent = document.querySelector('.dropdown-content');
-    //   dropdownContent?.classList.toggle('block');
-    //   dropdownContent?.classList.toggle('hidden');
-    // });
-    
   }
 
   addUserRoles(): void {
@@ -72,6 +54,10 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   addNewUser(user: User): void {
     this.users.unshift(user);
+    this.userAdded = true;
+    setTimeout(() => {
+      this.userAdded = false;
+    }, 3000);
   }
   
   editUser(user: User): void {
@@ -79,10 +65,18 @@ export class UsersComponent implements OnInit, OnDestroy {
     if (index !== -1) {
       this.users[index] = user;
     }
+    this.userEdited = true;
+    setTimeout(() => {
+      this.userEdited = false;
+    }, 3000);
   }
 
   deleteUser(user: User): void {
     this.users = this.users.filter((u: User) => u !== user);
+    this.userDeleted = true;
+    setTimeout(() => {
+      this.userDeleted = false;
+    }, 3000);
   }
 
 
