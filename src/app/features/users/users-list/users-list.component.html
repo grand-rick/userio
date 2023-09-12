@@ -5,7 +5,7 @@
   </div> -->
 
 <table class="flex flex-col container mx-auto justify-between text-center mb-5 sm:text-left">
-    <thead>
+    <thead class="w-full">
         <tr class="flex justify-between text-center px-8 sm:w-auto sm:text-left">
             <th>User</th>
             <th>Email</th>
@@ -13,16 +13,18 @@
             <th></th>
         </tr>
     </thead>
-    <tbody class="flex flex-col space-y-6 px-8 text-center mt-2 sm:w-auto">
-        <tr *ngFor="let user of users" class="flex w-full justify-between rounded-lg px-3 py-6 bg-slate-50 text-black">
+    <tbody class="flex flex-col w-full space-y-6 px-8 text-center mt-2 sm:w-auto">
+        <tr *ngFor="let user of users" class="flex justify-between text-center rounded-lg px-3 py-6 bg-slate-50 text-black">
             <td>{{ user.name.firstname }}</td>
             <td>{{ user.email }}</td>
             <td>{{ user.address.number }}</td>
-            <td class="dropdown">
-                <img src="assets/icons/more_horiz_black.svg" class="cursor-pointer px-1 hover:bg-slate-300 hover:rounded-lg active:bg-indigo-600 active:text-white" alt="more">
-                <ul class="flex items-center justify-center list-none dropdown-content rounded-lg">
-                    <li class="mx-2.5"><a routerLink="/" class="no-underline text-black py-3 font-bold hover:text-sky-700">Edit</a></li>
-                    <li class="mx-2.5"><a routerLink="/" class="no-underline text-black py-3 font-bold hover:text-sky-700">Delete</a></li>
+            <td class="dropdown dropdown-end dropdown-hover">
+                <label tabindex="0">
+                    <img src="assets/icons/more_horiz_black.svg" class="cursor-pointer px-1 hover:bg-slate-300 hover:rounded-lg active:bg-indigo-600 active:text-white" alt="more">
+                </label>
+                <ul tabindex="0" class="dropdown-content z-[1] bg-primary-content menu p-2 shadow bg-base-100 rounded-box w-24 sm:w-48">
+                    <li><a>Edit</a></li>
+                    <li><a>Delete</a></li>
                 </ul>
             </td>
         </tr>
