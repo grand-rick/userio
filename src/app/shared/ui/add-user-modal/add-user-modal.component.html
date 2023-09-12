@@ -1,11 +1,11 @@
-<div class="modal-box w-full">
+<div class="modal-box w-11/12">
   <form method="dialog">
     <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
   </form>
   <form [formGroup]="addUserForm" class="space-y-4">
     <input formControlName="firstName" type="text" name="firstName" id="firstName" placeholder="First Name" class="input input-bordered w-full max-w-xs">
     <input formControlName="email" type="email" name="email" id="email" placeholder="Email" class="input input-bordered w-full max-w-xs">
-    <select formControlName="role" class="select select-bordered w-11/12 max-w-xs">
+    <select formControlName="role" class="select select-bordered w-full max-w-xs">
       <option disabled selected>Role</option>
       <option>Admin</option>
       <option>User</option>
