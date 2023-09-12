@@ -14,13 +14,13 @@
         </tr>
     </thead>
     <tbody class="flex flex-col space-y-6 px-8 text-center mt-2 sm:w-auto">
-        <tr *ngFor="let user of users" class="flex w-100 justify-between rounded-lg px-3 py-6 bg-slate-50 text-black">
+        <tr *ngFor="let user of users" class="flex w-full justify-between rounded-lg px-3 py-6 bg-slate-50 text-black">
             <td>{{ user.name.firstname }}</td>
             <td>{{ user.email }}</td>
             <td>{{ user.address.number }}</td>
             <td class="dropdown">
                 <img src="assets/icons/more_horiz_black.svg" class="cursor-pointer px-1 hover:bg-slate-300 hover:rounded-lg active:bg-indigo-600 active:text-white" alt="more">
-                <ul class="flex items-center justify-center list-none hidden dropdown-content rounded-lg">
+                <ul class="flex items-center justify-center list-none dropdown-content rounded-lg">
                     <li class="mx-2.5"><a routerLink="/" class="no-underline text-black py-3 font-bold hover:text-sky-700">Edit</a></li>
                     <li class="mx-2.5"><a routerLink="/" class="no-underline text-black py-3 font-bold hover:text-sky-700">Delete</a></li>
                 </ul>
