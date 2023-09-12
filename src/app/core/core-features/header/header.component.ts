@@ -1,5 +1,6 @@
-import { Component, Inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component } from '@angular/core';
+import { UsersService } from 'src/app/shared/data-access/services/users.service';
+import { NewUser } from 'src/app/shared/data-access/types/User';
 
 @Component({
   selector: 'app-header',
@@ -13,11 +14,15 @@ export class HeaderComponent {
    */
   isAddingUser = false;
 
-  private route = Inject(ActivatedRoute);
+  constructor(private usersService: UsersService) { }
 
   ngOnInit() { }
 
   showAddUserModal(showAddUserModal: HTMLDialogElement) {
     showAddUserModal.showModal();
+  }
+
+  addNewUser(newUser: NewUser) {
+    this.usersService.addNewUser(newUser);
   }
 }

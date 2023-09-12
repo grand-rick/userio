@@ -13,7 +13,7 @@
             Add New User
         </button>
         <dialog id="1" #addUserModal class="modal">            
-            <add-user-modal #addUserModal></add-user-modal>
+            <add-user-modal #addUserModal (addUser)="addNewUser($event)"></add-user-modal>
         </dialog>
     </div>
 </header>

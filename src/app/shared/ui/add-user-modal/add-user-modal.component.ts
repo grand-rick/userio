@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -7,6 +7,9 @@ import { FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./add-user-modal.component.scss']
 })
 export class AddUserModalComponent {
+  @Output() addUser = new EventEmitter();
+
+
   constructor(
     private fb: FormBuilder
   ) { }
@@ -24,7 +27,9 @@ export class AddUserModalComponent {
     ]]
   });
 
-  addUser() {
-    console.log(this.addUserForm.value);
+  onSubmit() {
+    // console.log(this.addUserForm.value);
+    this.addUser.emit(this.addUserForm.value);
+    this.addUserForm.reset();
   }
 }

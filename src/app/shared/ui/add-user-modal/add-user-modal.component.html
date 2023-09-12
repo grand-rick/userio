@@ -1,4 +1,4 @@
-<div class="modal-box w-11/12">
+<div class="modal-box w-full sm:max-w-5xl">
   <form method="dialog">
     <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
   </form>
@@ -7,13 +7,13 @@
     <input formControlName="email" type="email" name="email" id="email" placeholder="Email" class="input input-bordered w-full max-w-xs">
     <select formControlName="role" class="select select-bordered w-full max-w-xs">
       <option disabled selected>Role</option>
-      <option>Admin</option>
-      <option>User</option>
+      <option>1234</option>
+      <option>4321</option>
     </select>
   </form>
   <div class="modal-action">
       <form method="dialog">
-      <button class="btn" (click)="addUser()" >Add User</button>
+      <button class="btn" (click)="onSubmit()">Add User</button>
       </form>
   </div>
 </div>
