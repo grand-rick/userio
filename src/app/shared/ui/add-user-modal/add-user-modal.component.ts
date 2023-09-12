@@ -8,7 +8,7 @@ import { NewUser } from '../../data-access/types/User';
   styleUrls: ['./add-user-modal.component.scss']
 })
 export class AddUserModalComponent {
-  @Output() addUser = new EventEmitter();
+  @Output() addUserEvent = new EventEmitter();
 
 
   constructor(
@@ -30,7 +30,7 @@ export class AddUserModalComponent {
 
   onSubmit() {
     // console.log(this.addUserForm.value);
-    this.addUser.emit(this.addUserForm.value);
+    this.addUserEvent.emit(this.addUserForm.value);
     this.addUserForm.reset();
   }
 }

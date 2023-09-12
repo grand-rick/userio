@@ -26,14 +26,18 @@ export class EditUserModalComponent {
         Validators.required,
         Validators.email
       ]],
-      role: [this.user.address.number, [
+      role: [this.user.role, [
         Validators.required
       ]]
     });
   }
 
   onSubmit(): void {
-    this.editUser.emit(this.editUserForm.value);
+    this.user.name.firstname = this.editUserForm.value.firstName;
+    this.user.email = this.editUserForm.value.email;
+    this.user.role = this.editUserForm.value.role;
+
+    this.editUser.emit(this.user);
     this.editUserForm.reset();
   }
 }

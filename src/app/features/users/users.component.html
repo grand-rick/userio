@@ -1,11 +1,11 @@
 <section id="users">
     <app-header (addUserEvent)="addNewUser($event)"></app-header>
 
-    <users-list *ngIf="users.length; else elseBlock" [users]="users" [test]="users$"></users-list>
+    <users-list *ngIf="users.length; else elseBlock" [users]="users" (editUserEvent)="editUser($event)" (deleteUserEvent)="deleteUser($event)"></users-list>
 
     <ng-template #elseBlock>
         <div>
-            <h1 class="text-2xl text-center text-red-500 font-bold">{{noUserMessage}}</h1>
+            <h1 class="text-2xl text-center text-red-500 font-bold">No users found</h1>
         </div>
     </ng-template>
 

@@ -1,5 +1,5 @@
 import { HttpErrorResponse, HttpEvent, HttpEventType } from '@angular/common/http';
-import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { Subscription, catchError, of } from 'rxjs';
 import { GlobalsService } from 'src/app/core/core-services/globals/globals.service';
 import { UsersService } from 'src/app/shared/data-access/services/users.service';
@@ -10,8 +10,7 @@ import { User } from 'src/app/shared/data-access/types/User';
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss']
 })
-export class UsersComponent implements OnInit {
-  noUserMessage: string = '';
+export class UsersComponent implements OnInit, OnDestroy {
   getError$ = this.globals.errors.getError$;
   users$ = this.usersService.getUsers().pipe(
     catchError((err: HttpErrorResponse) => {
@@ -44,8 +43,8 @@ export class UsersComponent implements OnInit {
         //   break;
         case HttpEventType.Response:
           this.users = event.body as User[];
+          this.addUserRoles();
           if (!event.body || this.users.length === 0) {
-            this.noUserMessage = 'No users found';
           }
           this.globals.spinner.hide();
           break;
@@ -63,13 +62,29 @@ export class UsersComponent implements OnInit {
     
   }
 
+  addUserRoles(): void {
+    const roles = ['Admin', 'User'];
+    const randomRole = () => roles[Math.floor(Math.random() * roles.length)];
+    this.users.forEach((user: User) => {
+      user.role = randomRole();
+    });
+  }
+
   addNewUser(user: User): void {
     this.users.unshift(user);
   }
   
-  editUser(user: User): void {}
+  editUser(user: User): void {
+    const index = this.users.findIndex((u: User) => u.id === user.id && u.username === user.username);
+    if (index !== -1) {
+      this.users[index] = user;
+    }
+  }
 
-  deleteUser(user: User): void {}
+  deleteUser(user: User): void {
+    this.users = this.users.filter((u: User) => u !== user);
+  }
+
 
   ngOnDestroy(): void {
     if (this.subscription) {
