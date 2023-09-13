@@ -2,8 +2,8 @@ import { HttpErrorResponse, HttpEvent, HttpEventType } from '@angular/common/htt
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription, catchError, of } from 'rxjs';
 import { GlobalsService } from 'src/app/core/core-services/globals/globals.service';
-import { UsersService } from 'src/app/shared/data-access/services/users.service';
-import { User } from 'src/app/shared/data-access/types/User';
+import { UsersService } from 'src/app/services/users.service';
+import { User } from 'src/app/shared/types/User';
 
 @Component({
   selector: 'app-main',

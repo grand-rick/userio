@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { User } from '../../data-access/types/User';
+import { User } from '../../types/User';
 
 @Component({
   selector: 'edit-user-modal',
