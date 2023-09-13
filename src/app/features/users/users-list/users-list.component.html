@@ -1,15 +1,14 @@
-<div class="overflow-x-auto container mx-auto px-4">
-    <table class="table">
+<div class="overflow-x-auto container mx-auto px-4 mb-3">
+    <table class="table table-sm">
         <thead class="">
             <tr class="text-black">
                 <th>User</th>
                 <th>Email</th>
-                <th>Role</th>
-                <th></th>
+                <th colspan="2" >Role</th>
             </tr>
         </thead>
         <tbody class="text-black">
-            <tr *ngFor="let user of users" class="space-y-4">
+            <tr *ngFor="let user of users" class="space-y-12">
                 <td>{{ user.name.firstname }}</td>
                 <td>{{ user.email }}</td>
                 <td>{{ user.role }}</td>
