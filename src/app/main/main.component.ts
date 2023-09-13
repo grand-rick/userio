@@ -6,11 +6,11 @@ import { UsersService } from 'src/app/shared/data-access/services/users.service'
 import { User } from 'src/app/shared/data-access/types/User';
 
 @Component({
-  selector: 'app-users',
-  templateUrl: './users.component.html',
-  styleUrls: ['./users.component.scss']
+  selector: 'app-main',
+  templateUrl: './main.component.html',
+  styleUrls: ['./main.component.scss']
 })
-export class UsersComponent implements OnInit, OnDestroy {
+export class MainComponent implements OnInit, OnDestroy {
   userEdited: boolean = false;
   userDeleted: boolean = false;
   userAdded: boolean = false;
