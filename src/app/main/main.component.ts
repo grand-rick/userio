@@ -1,5 +1,5 @@
 import { HttpErrorResponse, HttpEvent, HttpEventType } from '@angular/common/http';
-import { Component, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription, catchError, of } from 'rxjs';
 import { GlobalsService } from 'src/app/core/core-services/globals/globals.service';
 import { UsersService } from 'src/app/shared/data-access/services/users.service';
@@ -25,10 +25,22 @@ export class MainComponent implements OnInit, OnDestroy {
   users: User[] = [];
   private subscription: Subscription = new Subscription();
 
-  constructor(private usersService: UsersService, private renderer: Renderer2, private globals: GlobalsService) {}
+
+  // pageSize: number = 10;
+  // collectionSize: number = 0;
+
+
+  constructor(
+    private usersService: UsersService,
+    private globals: GlobalsService
+  ) {}
 
   ngOnInit(): void {
     this.globals.spinner.show();
+    this.getUsers();
+  }
+
+  getUsers(): void {
     this.subscription = this.users$.subscribe((event: HttpEvent<User[]>) => {
       switch (event.type) {
         case HttpEventType.Response:
@@ -78,6 +90,8 @@ export class MainComponent implements OnInit, OnDestroy {
       this.userDeleted = false;
     }, 3000);
   }
+
+  
 
 
   ngOnDestroy(): void {

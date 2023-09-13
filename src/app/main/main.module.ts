@@ -5,10 +5,10 @@ import { MainRoutingModule } from './main-routing.module';
 import { UsersListComponent } from './users-list/users-list.component';
 
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { EditUserModalModule } from 'src/app/shared/ui/edit-user-modal/edit-user-modal.module';
 import { MainComponent } from './main.component';
 import { HeaderComponent } from './header/header.component';
 import { SharedModule } from '../shared/shared.module';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 const components = [
   MainComponent,
@@ -21,14 +21,11 @@ const modules = [
   MainRoutingModule,
   NgxSpinnerModule,
   SharedModule,
+  NgxPaginationModule
 ]
 
 @NgModule({
-  declarations: [
-    components
-  ],
-  imports: [
-    modules
-  ]
+  declarations: [components],
+  imports: [modules]
 })
 export class MainModule { }

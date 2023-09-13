@@ -15,11 +15,20 @@ export class UsersListComponent implements OnInit {
   @Output() editUserEvent = new EventEmitter<User>();
   @Output() deleteUserEvent = new EventEmitter<User>();
 
+  page: number = 1;
+  tableSize: number = 10;
+  tableSizes: number[] = [5, 10, 15, 20]; 
+
+  allUsers: User[] = [];
+
+
   constructor(
     private usersService: UsersService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.allUsers = this.users;
+  }
 
   // getUsers(response: HttpEvent<User[]>): void {
   //   this.test.pipe(filter((event: HttpEvent<User[]>) => event.type === HttpEventType.Response), tap((event: HttpEvent<User[]>) => {
@@ -46,6 +55,17 @@ export class UsersListComponent implements OnInit {
     if (isDeleteUser) {
       this.deleteUserEvent.emit(user);
     }
+  }
+
+  onTableDataChange(event: any): void {
+    this.page = event;
+    this.allUsers = this.users;
+  }
+
+  onTableSizeChange(event: any): void {
+    this.tableSize = event.target.value;
+    this.page = 1;
+    this.allUsers = this.users;
   }
 
 }
