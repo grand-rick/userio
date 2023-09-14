@@ -5,8 +5,8 @@
             <h1 routerLink="/" class="font-bold text-left text-3xl cursor-pointer sm:text-4xl">
                 Userio
             </h1>
-            <form>
-                <input type="text" name="" id="" placeholder="Search name..." class="flex rounded-full bg-indigo-200 text-black px-3 py-2 sm:px-4 placeholder:text-black focus:outline-none">
+            <form #searchForm="ngForm">
+                <input type="text" name="searchItem" id="searchItem" [(ngModel)]="searchItem" (ngModelChange)="searchUser(searchItem)" placeholder="Search name..." class="flex rounded-full bg-indigo-200 text-black px-3 py-2 sm:px-4 placeholder:text-black focus:outline-none">
             </form>
         </div>
         <button (click)="showAddUserModal(addUserModal)" class="rounded-lg text-white bg-indigo-600 px-2 py-1 text-sm sm:text-md sm:px-4 sm:py-2 font-bold hover:bg-indigo-400 disabled:bg-gray-400">

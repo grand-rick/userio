@@ -9,6 +9,7 @@ import { MainComponent } from './main.component';
 import { HeaderComponent } from './header/header.component';
 import { SharedModule } from '../shared/shared.module';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { FormsModule } from '@angular/forms';
 
 const components = [
   MainComponent,
@@ -22,6 +23,7 @@ const modules = [
   SharedModule,
   NgxSpinnerModule,
   NgxPaginationModule,
+  FormsModule
 ]
 
 @NgModule({

@@ -12,7 +12,7 @@ export class UsersComponent implements OnInit {
   private globals: GlobalService = inject(GlobalService);
   private usersService: UsersService = inject(UsersService);
   
-  allUsers: WritableSignal<User[]> = this.usersService.allUsers;
+  users: WritableSignal<User[]> = this.usersService.filteredUsers;
 
   page: number = 1;
   tableSize: number = 10;
@@ -33,18 +33,18 @@ export class UsersComponent implements OnInit {
 
 
   editUser(user: User): void {
-    this.usersService.allUsers.update((users: User[]) => users.map((u: User) => u.id === user.id && u.username === user.username ? user : u));
+    this.usersService.filteredUsers.update((users: User[]) => users.map((u: User) => u.id === user.id && u.username === user.username ? user : u));
     this.globals.toaster.showSuccess('User updated successfully');
 
   }
 
   deleteUser(isDeleteUser: boolean, user: User): void {
     if (isDeleteUser) {
-      this.usersService.allUsers.update((users: User[]) => users.filter((u: User) => u !== user));
+      this.usersService.filteredUsers.update((users: User[]) => users.filter((u: User) => u !== user));
       this.globals.toaster.showSuccess('User deleted successfully');
     }
 
-    if ((this.page > 1) && (this.allUsers().length % this.tableSize === 1)) {
+    if ((this.page > 1) && (this.users().length % this.tableSize === 1)) {
       this.page++;
     }
   }

@@ -12,12 +12,13 @@ import { GlobalService } from '../global/global.service';
 export class UsersService {
   private globals: GlobalService = inject(GlobalService);
   
-  allUsers: WritableSignal<User[]> = signal([]);
+  getAllUsers: WritableSignal<User[]> = signal([]);
+  filteredUsers: WritableSignal<User[]> = this.getAllUsers;
 
   constructor(@Inject(APP_SERVICE_CONFIG) private config: AppConfig) { }
 
   setAllUsers(users: User[]): void {
-    this.allUsers.set(users);
+    this.getAllUsers.set(users);
   }
     
   getUsers(): Observable<HttpEvent<User[]>> {
