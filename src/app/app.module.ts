@@ -7,7 +7,7 @@ import { APP_CONFIG, APP_SERVICE_CONFIG } from './core/AppConfig/appconfig.servi
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { RequestInterceptor } from './core/interceptors/request.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CustomErrorHandler } from './services/core/custom-error-handler/custom-error-handler.service';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
     declarations: [
@@ -22,16 +22,15 @@ import { CustomErrorHandler } from './services/core/custom-error-handler/custom-
             provide: HTTP_INTERCEPTORS,
             useClass: RequestInterceptor,
             multi: true
-        },
-        {
-            provide: ErrorHandler,
-            useClass: CustomErrorHandler
         }
     ],
     bootstrap: [AppComponent],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
+        ToastrModule.forRoot({
+            timeOut: 2000,
+        }),
         HttpClientModule,
         AppRoutingModule
     ]

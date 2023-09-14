@@ -21,7 +21,7 @@ const modules = [
   MainRoutingModule,
   NgxSpinnerModule,
   SharedModule,
-  NgxPaginationModule
+  NgxPaginationModule,
 ]
 
 @NgModule({

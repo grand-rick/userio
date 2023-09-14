@@ -4,6 +4,7 @@ import { APP_SERVICE_CONFIG } from '../../core/AppConfig/appconfig.service';
 import { AppConfig } from '../../core/AppConfig/appconfig.interface';
 import { Observable } from 'rxjs';
 import { User, NewUser } from '../../shared/types/User';
+import { GlobalService } from '../global/global.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ import { User, NewUser } from '../../shared/types/User';
 export class UsersService {
   constructor(
     @Inject(APP_SERVICE_CONFIG) private config: AppConfig,
-    private http: HttpClient
+    private globals: GlobalService
     ) { }
     
     getUsers(): Observable<HttpEvent<User[]>> {
@@ -21,7 +22,7 @@ export class UsersService {
         {
           reportProgress: true,
         });
-      return this.http.request<User[]>(request);
+      return this.globals.http.request<User[]>(request);
   }
 
   addNewUser(newUser: NewUser): User {
@@ -66,7 +67,7 @@ export class UsersService {
       {
         reportProgress: true
       });
-    return this.http.request<User>(request);
+    return this.globals.http.request<User>(request);
   }
 
   editUser(user: User): Observable<HttpEvent<User>> {
@@ -77,7 +78,7 @@ export class UsersService {
       {
         reportProgress: true
       });
-    return this.http.request<User>(request);
+    return this.globals.http.request<User>(request);
   }
 }
 

@@ -1,9 +1,9 @@
-import { HttpErrorResponse, HttpEvent, HttpEventType } from '@angular/common/http';
+import {  HttpErrorResponse, HttpEvent, HttpEventType } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription, catchError, of } from 'rxjs';
-import { GlobalsService } from 'src/app/services/core/globals/globals.service';
+import { Subscription, catchError, tap } from 'rxjs';
 import { UsersService } from 'src/app/services/users/users.service';
 import { User } from 'src/app/shared/types/User';
+import { GlobalService } from '../services/global/global.service';
 
 @Component({
   selector: 'app-main',
@@ -11,28 +11,13 @@ import { User } from 'src/app/shared/types/User';
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit, OnDestroy {
-  userEdited: boolean = false;
-  userDeleted: boolean = false;
-  userAdded: boolean = false;
-  // getError$ = this.globals.errors.getError$;
-  users$ = this.usersService.getUsers().pipe(
-    catchError((err: HttpErrorResponse) => {
-      // this.globals.errors.addError(err);
-      // this.globals.toast.error(err.message);
-      return of<HttpEvent<User[]>>([] as unknown as HttpEvent<User[]>);
-    })
-  );
+  users$ = this.usersService.getUsers();
   users: User[] = [];
   private subscription: Subscription = new Subscription();
 
-
-  // pageSize: number = 10;
-  // collectionSize: number = 0;
-
-
   constructor(
     private usersService: UsersService,
-    private globals: GlobalsService
+    private globals: GlobalService
   ) {}
 
   ngOnInit(): void {
@@ -41,19 +26,20 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   getUsers(): void {
-    this.subscription = this.users$.subscribe((event: HttpEvent<User[]>) => {
-      switch (event.type) {
-        case HttpEventType.Response:
+    this.subscription = this.users$.pipe(
+      tap((event: HttpEvent<User[]>) => {
+        if (event.type === HttpEventType.Response) {
           this.users = event.body as User[];
           this.addUserRoles();
-          if (!event.body || this.users.length === 0) {
-          }
           this.globals.spinner.hide();
-          break;
-        default:
-          break;
-      }
-    });
+        }
+      }),
+      catchError((error: HttpErrorResponse) => {
+        this.globals.spinner.hide();
+        this.globals.toaster.showError(error.message);
+        throw error; // Rethrow the error to propagate it further if needed
+      })
+    ).subscribe();
   }
 
   addUserRoles(): void {
@@ -66,10 +52,7 @@ export class MainComponent implements OnInit, OnDestroy {
 
   addNewUser(user: User): void {
     this.users.unshift(user);
-    this.userAdded = true;
-    setTimeout(() => {
-      this.userAdded = false;
-    }, 3000);
+    this.globals.toaster.showSuccess('User added successfully');
   }
   
   editUser(user: User): void {
@@ -77,18 +60,12 @@ export class MainComponent implements OnInit, OnDestroy {
     if (index !== -1) {
       this.users[index] = user;
     }
-    this.userEdited = true;
-    setTimeout(() => {
-      this.userEdited = false;
-    }, 3000);
+    this.globals.toaster.showSuccess('User updated successfully');
   }
 
   deleteUser(user: User): void {
     this.users = this.users.filter((u: User) => u !== user);
-    this.userDeleted = true;
-    setTimeout(() => {
-      this.userDeleted = false;
-    }, 3000);
+    this.globals.toaster.showSuccess('User deleted successfully');
   }
 
   
