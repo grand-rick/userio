@@ -15,14 +15,14 @@ export class UsersService {
     private globals: GlobalService
     ) { }
     
-    getUsers(): Observable<HttpEvent<User[]>> {
-      const request = new HttpRequest(
-        'GET',
-        `${this.config.apiEndpoint}/users`,
-        {
-          reportProgress: true,
-        });
-      return this.globals.http.request<User[]>(request);
+  getUsers(): Observable<HttpEvent<User[]>> {
+    const request = new HttpRequest(
+      'GET',
+      `${this.config.apiEndpoint}/users`,
+      {
+        reportProgress: true,
+      });
+    return this.globals.http.request<User[]>(request);
   }
 
   addNewUser(newUser: NewUser): User {
