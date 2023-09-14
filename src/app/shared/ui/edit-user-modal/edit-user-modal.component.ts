@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../types/User';
 
@@ -11,11 +11,11 @@ export class EditUserModalComponent {
   @Output() editUser = new EventEmitter();
   @Input({required: true}) user!: User;
 
+  private fb: FormBuilder = inject(FormBuilder);
+
   editUserForm: FormGroup = new FormGroup({});
 
-  constructor(
-    private fb: FormBuilder
-  ) {}
+  constructor() {}
 
   ngOnInit() : void {
     this.editUserForm = this.fb.group({
@@ -33,7 +33,7 @@ export class EditUserModalComponent {
     });
   }
 
-  handleError(controlName: string, errorName: string) {
+  handleError(controlName: string, errorName: string): boolean {
     const control = this.editUserForm.controls[controlName];
     return (control.touched || control.dirty) && control.hasError(errorName);
   }

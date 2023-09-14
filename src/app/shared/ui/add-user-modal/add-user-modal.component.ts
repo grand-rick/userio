@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -9,10 +9,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class AddUserModalComponent implements OnInit {
   @Output() addUserEvent = new EventEmitter();
 
+  private fb: FormBuilder = inject(FormBuilder);
 
-  constructor(
-    private fb: FormBuilder
-  ) { }
+  constructor() { }
 
   addUserForm: FormGroup = new FormGroup({});
 
@@ -32,13 +31,12 @@ export class AddUserModalComponent implements OnInit {
     });
   }
 
-  handleError(controlName: string, errorName: string) {
+  handleError(controlName: string, errorName: string): boolean {
     const control = this.addUserForm.controls[controlName];
     return (control.touched || control.dirty) && control.hasError(errorName);
   }
 
-  onSubmit() {
-    // console.log(this.addUserForm.value);
+  onSubmit(): void {
     this.addUserEvent.emit(this.addUserForm.value);
     this.addUserForm.reset();
   }

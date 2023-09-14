@@ -1,4 +1,4 @@
-import { Inject, Injectable, WritableSignal, signal } from '@angular/core';
+import { Inject, Injectable, WritableSignal, inject, signal } from '@angular/core';
 import { HttpEvent, HttpRequest } from '@angular/common/http';
 import { APP_SERVICE_CONFIG } from '../../core/AppConfig/appconfig.service';
 import { AppConfig } from '../../core/AppConfig/appconfig.interface';
@@ -10,12 +10,11 @@ import { GlobalService } from '../global/global.service';
   providedIn: 'root'
 })
 export class UsersService {
+  private globals = inject(GlobalService);
+  
   allUsers: WritableSignal<User[]> = signal([]);
 
-  constructor(
-    @Inject(APP_SERVICE_CONFIG) private config: AppConfig,
-    private globals: GlobalService
-    ) { }
+  constructor(@Inject(APP_SERVICE_CONFIG) private config: AppConfig) { }
 
   setAllUsers(users: User[]): void {
     this.allUsers.set(users);

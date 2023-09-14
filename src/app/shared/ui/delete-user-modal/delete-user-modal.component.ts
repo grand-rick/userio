@@ -8,12 +8,11 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 export class DeleteUserModalComponent implements OnInit {
   @Output() deleteUserEvent = new EventEmitter<boolean>();
 
-
   constructor() { }
 
   ngOnInit(): void {}
 
-  onSubmit(deleteUser: boolean) {
+  onSubmit(deleteUser: boolean): void {
     this.deleteUserEvent.emit(deleteUser);
   }
 }
