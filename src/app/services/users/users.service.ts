@@ -10,7 +10,7 @@ import { GlobalService } from '../global/global.service';
   providedIn: 'root'
 })
 export class UsersService {
-  private globals = inject(GlobalService);
+  private globals: GlobalService = inject(GlobalService);
   
   allUsers: WritableSignal<User[]> = signal([]);
 

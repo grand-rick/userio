@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { GlobalService } from 'src/app/services/global/global.service';
 import { UsersService } from 'src/app/services/users/users.service';
 import { NewUser, User } from 'src/app/shared/types/User';
@@ -9,18 +9,16 @@ import { NewUser, User } from 'src/app/shared/types/User';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  constructor(
-    private usersService: UsersService,
-    private globals: GlobalService
-    ) { }
+  private globals: GlobalService = inject(GlobalService);
+  private usersService: UsersService = inject(UsersService);
 
-  ngOnInit() { }
+  constructor() { }
 
-  showAddUserModal(showAddUserModal: HTMLDialogElement) {
+  showAddUserModal(showAddUserModal: HTMLDialogElement): void {
     showAddUserModal.showModal();
   }
 
-  addNewUser(newUser: NewUser) {
+  addNewUser(newUser: NewUser): void {
     const addedUser = this.usersService.addNewUser(newUser);
     this.usersService.allUsers.update((user: User[]) => [addedUser, ...user]);
     this.globals.toaster.showSuccess('User added successfully');

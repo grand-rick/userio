@@ -19,8 +19,8 @@ const components = [
 const modules = [
   CommonModule,
   MainRoutingModule,
-  NgxSpinnerModule,
   SharedModule,
+  NgxSpinnerModule,
   NgxPaginationModule,
 ]
 

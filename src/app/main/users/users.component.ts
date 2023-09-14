@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, WritableSignal, inject } from '@angular/core';
 import { GlobalService } from 'src/app/services/global/global.service';
 import { UsersService } from 'src/app/services/users/users.service';
 import { User } from 'src/app/shared/types/User';
@@ -9,10 +9,10 @@ import { User } from 'src/app/shared/types/User';
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit {
-  private globals = inject(GlobalService);
-  private usersService = inject(UsersService);
+  private globals: GlobalService = inject(GlobalService);
+  private usersService: UsersService = inject(UsersService);
   
-  allUsers = this.usersService.allUsers;
+  allUsers: WritableSignal<User[]> = this.usersService.allUsers;
 
   page: number = 1;
   tableSize: number = 10;

@@ -1,6 +1,6 @@
 import {  HttpErrorResponse, HttpEvent, HttpEventType } from '@angular/common/http';
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription, catchError, tap } from 'rxjs';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { Observable, Subscription, catchError, tap } from 'rxjs';
 import { UsersService } from 'src/app/services/users/users.service';
 import { User } from 'src/app/shared/types/User';
 import { GlobalService } from '../services/global/global.service';
@@ -11,14 +11,14 @@ import { GlobalService } from '../services/global/global.service';
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit, OnDestroy {
-  users$ = this.usersService.getUsers();
+  private globals: GlobalService = inject(GlobalService);
+  private usersService: UsersService = inject(UsersService);
+
+  users$: Observable<HttpEvent<User[]>> = this.usersService.getUsers();
   users: User[] = [];
   private subscription: Subscription = new Subscription();
 
-  constructor(
-    private usersService: UsersService,
-    private globals: GlobalService
-  ) {}
+  constructor() {}
 
   ngOnInit(): void {
     this.globals.spinner.show();

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { SpinnerService } from '../core/spinner/spinner.service';
 import { ToasterService } from '../core/toaster/toaster.service';
@@ -8,11 +8,10 @@ import { ToasterService } from '../core/toaster/toaster.service';
   providedIn: 'root'
 })
 export class GlobalService {
+  public http: HttpClient = inject(HttpClient);
+  public router: Router = inject(Router);
+  public spinner: SpinnerService = inject(SpinnerService);
+  public toaster: ToasterService = inject(ToasterService);
 
-  constructor(
-    public http: HttpClient,
-    public router: Router,
-    public spinner: SpinnerService,
-    public toaster: ToasterService
-  ) { }
+  constructor() { }
 }
