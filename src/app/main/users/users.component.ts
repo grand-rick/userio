@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
+import { GlobalService } from 'src/app/services/global/global.service';
 import { UsersService } from 'src/app/services/users/users.service';
 import { User } from 'src/app/shared/types/User';
 
@@ -8,35 +9,43 @@ import { User } from 'src/app/shared/types/User';
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit {
-
+  private globals = inject(GlobalService);
+  private usersService = inject(UsersService);
+  
   allUsers = this.usersService.allUsers;
 
   page: number = 1;
   tableSize: number = 10;
-  tableSizes: number[] = [5, 10, 15, 20]; 
+  tableSizes: number[] = [5, 10, 15, 20];
 
 
-  constructor(private usersService: UsersService) {}
+  constructor() {}
 
   ngOnInit(): void {}
 
-  showEditUserModal(editUserModal: HTMLDialogElement) {
+  showEditUserModal(editUserModal: HTMLDialogElement): void {
     editUserModal.showModal();
   }
 
-  showDeleteUserModal(deleteUserModal: HTMLDialogElement) {
+  showDeleteUserModal(deleteUserModal: HTMLDialogElement): void {
     deleteUserModal.showModal();
   }
 
 
-  editUser(user: User) {
+  editUser(user: User): void {
     this.usersService.allUsers.update((users: User[]) => users.map((u: User) => u.id === user.id && u.username === user.username ? user : u));
+    this.globals.toaster.showSuccess('User updated successfully');
+
   }
 
-  deleteUser(user: User) {
-    const isDeleteUser = window.confirm(`Are you sure you want to delete ${user.name.firstname}?`);
+  deleteUser(isDeleteUser: boolean, user: User): void {
     if (isDeleteUser) {
       this.usersService.allUsers.update((users: User[]) => users.filter((u: User) => u !== user));
+      this.globals.toaster.showSuccess('User deleted successfully');
+    }
+
+    if ((this.page > 1) && (this.allUsers().length % this.tableSize === 1)) {
+      this.page++;
     }
   }
 

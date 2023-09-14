@@ -1,17 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AddUserModalModule } from './ui/add-user-modal/add-user-modal.module';
-import { EditUserModalModule } from './ui/edit-user-modal/edit-user-modal.module';
+import { DeleteUserModalComponent } from './ui/delete-user-modal/delete-user-modal.component';
+import { AddUserModalComponent } from './ui/add-user-modal/add-user-modal.component';
+import { EditUserModalComponent } from './ui/edit-user-modal/edit-user-modal.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
-const sharedModules = [
-  CommonModule,
-  AddUserModalModule,
-  EditUserModalModule
+const sharedUiComponents = [
+  AddUserModalComponent,
+  EditUserModalComponent,
+  DeleteUserModalComponent
 ]
 
 @NgModule({
-  declarations: [],
-  imports: [],
-  exports: [sharedModules]
+  declarations: [sharedUiComponents],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule
+  ],
+  exports: [sharedUiComponents]
 })
 export class SharedModule { }

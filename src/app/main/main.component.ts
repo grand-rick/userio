@@ -51,19 +51,8 @@ export class MainComponent implements OnInit, OnDestroy {
     });
   }
 
-  addNewUser(user: User): void {
-    this.usersService.allUsers.update((users: User[]) => [user, ...users]);
-    this.globals.toaster.showSuccess('User added successfully');
-  }
-  
-  editUser(user: User): void {
-    this.usersService.allUsers.update((users: User[]) => users.map((u: User) => u.id === user.id && u.username === user.username ? user : u));
-    this.globals.toaster.showSuccess('User updated successfully');
-  }
-
   deleteUser(user: User): void {
     this.usersService.allUsers.update((users: User[]) => users.filter((u: User) => u !== user));
-    this.globals.toaster.showSuccess('User deleted successfully');
   }
 
   ngOnDestroy(): void {

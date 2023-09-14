@@ -23,12 +23,15 @@
                         </label>
                         <ul tabindex="0" class="dropdown-content z-[1] bg-primary-content menu p-2 shadow bg-base-100 rounded-box w-24">
                             <li (click)="showEditUserModal(editUserModal)"><a>Edit</a></li>
-                            <li (click)="deleteUser(user)"><a>Delete</a></li>
+                            <li (click)="showDeleteUserModal(deleteUserModal)"><a>Delete</a></li>
                         </ul>
                     </div>
                 </td>
                 <dialog id="editUserModal" #editUserModal class="modal">            
                     <edit-user-modal [user]="user" (editUser)="editUser($event)"></edit-user-modal>
+                </dialog>
+                <dialog id="deleteUserModal" #deleteUserModal class="modal">            
+                    <delete-user-modal (deleteUserEvent)="deleteUser($event, user)"></delete-user-modal>
                 </dialog>
             </tr>
         </tbody>
