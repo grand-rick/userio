@@ -8,10 +8,10 @@
             </tr>
         </thead>
         <tbody class="text-black">
-            <tr *ngFor="let user of allUsers | paginate: {
+            <tr *ngFor="let user of allUsers() | paginate: {
                 itemsPerPage: tableSize,
                 currentPage: page,
-                totalItems: allUsers.length
+                totalItems: allUsers().length
             }; let i=index" class="">
                 <td>{{ user.name.firstname }}</td>
                 <td>{{ user.email }}</td>

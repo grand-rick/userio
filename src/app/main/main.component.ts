@@ -31,6 +31,7 @@ export class MainComponent implements OnInit, OnDestroy {
         if (event.type === HttpEventType.Response) {
           this.users = event.body as User[];
           this.addUserRoles();
+          this.usersService.setAllUsers(this.users);
           this.globals.spinner.hide();
         }
       }),
@@ -51,25 +52,19 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   addNewUser(user: User): void {
-    this.users.unshift(user);
+    this.usersService.allUsers.update((users: User[]) => [user, ...users]);
     this.globals.toaster.showSuccess('User added successfully');
   }
   
   editUser(user: User): void {
-    const index = this.users.findIndex((u: User) => u.id === user.id && u.username === user.username);
-    if (index !== -1) {
-      this.users[index] = user;
-    }
+    this.usersService.allUsers.update((users: User[]) => users.map((u: User) => u.id === user.id && u.username === user.username ? user : u));
     this.globals.toaster.showSuccess('User updated successfully');
   }
 
   deleteUser(user: User): void {
-    this.users = this.users.filter((u: User) => u !== user);
+    this.usersService.allUsers.update((users: User[]) => users.filter((u: User) => u !== user));
     this.globals.toaster.showSuccess('User deleted successfully');
   }
-
-  
-
 
   ngOnDestroy(): void {
     if (this.subscription) {

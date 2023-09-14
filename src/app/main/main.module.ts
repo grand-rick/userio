@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { MainRoutingModule } from './main-routing.module';
-import { UsersListComponent } from './users-list/users-list.component';
+import { UsersComponent } from './users/users.component';
 
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { MainComponent } from './main.component';
@@ -12,7 +12,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 
 const components = [
   MainComponent,
-  UsersListComponent,
+  UsersComponent,
   HeaderComponent
 ]
 
