@@ -49,9 +49,9 @@ export class UsersListComponent implements OnInit {
 
   deleteUser(user: User) {
     const isDeleteUser = window.confirm(`Are you sure you want to delete ${user.name.firstname}?`);
-    if (isDeleteUser) {
-      this.deleteUserEvent.emit(user);
-    }
+    if (isDeleteUser) this.deleteUserEvent.emit(user)
+    this.allUsers = this.allUsers.filter(u => u.id !== user.id);
+    // if (this.allUsers.length === this.tableSize && this.page !== 1) this.page = 1;
   }
 
   onTableDataChange(event: number): void {
