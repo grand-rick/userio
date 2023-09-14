@@ -54,8 +54,8 @@ export class UsersListComponent implements OnInit {
     }
   }
 
-  onTableDataChange(event: any): void {
-    this.page = event;
+  onTableDataChange(event: unknown): void {
+    this.page = event as number;
     this.allUsers = this.users;
   }
 

@@ -1,8 +1,8 @@
 import { HttpErrorResponse, HttpEvent, HttpEventType } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription, catchError, of } from 'rxjs';
-import { GlobalsService } from 'src/app/core/core-services/globals/globals.service';
-import { UsersService } from 'src/app/services/users.service';
+import { GlobalsService } from 'src/app/services/core/globals/globals.service';
+import { UsersService } from 'src/app/services/users/users.service';
 import { User } from 'src/app/shared/types/User';
 
 @Component({
@@ -14,10 +14,10 @@ export class MainComponent implements OnInit, OnDestroy {
   userEdited: boolean = false;
   userDeleted: boolean = false;
   userAdded: boolean = false;
-  getError$ = this.globals.errors.getError$;
+  // getError$ = this.globals.errors.getError$;
   users$ = this.usersService.getUsers().pipe(
     catchError((err: HttpErrorResponse) => {
-      this.globals.errors.addError(err);
+      // this.globals.errors.addError(err);
       // this.globals.toast.error(err.message);
       return of<HttpEvent<User[]>>([] as unknown as HttpEvent<User[]>);
     })

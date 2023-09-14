@@ -1,9 +1,9 @@
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
-import { APP_SERVICE_CONFIG } from '../core/AppConfig/appconfig.service';
-import { AppConfig } from '../core/AppConfig/appconfig.interface';
+import { APP_SERVICE_CONFIG } from '../../core/AppConfig/appconfig.service';
+import { AppConfig } from '../../core/AppConfig/appconfig.interface';
 import { Observable } from 'rxjs';
-import { User, NewUser } from '../shared/types/User';
+import { User, NewUser } from '../../shared/types/User';
 
 @Injectable({
   providedIn: 'root'
