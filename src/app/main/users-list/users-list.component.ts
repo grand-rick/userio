@@ -54,13 +54,15 @@ export class UsersListComponent implements OnInit {
     }
   }
 
-  onTableDataChange(event: unknown): void {
-    this.page = event as number;
+  onTableDataChange(event: number): void {
+    this.page = event;
     this.allUsers = this.users;
   }
 
-  onTableSizeChange(event: any): void {
-    this.tableSize = event.target.value;
+  onTableSizeChange(event: Event): void {
+    const target = event.target as HTMLInputElement; // Assuming event.target is an HTMLInputElement
+    this.tableSize = +target.value;
+    this.tableSize = +target?.value;
     this.page = 1;
     this.allUsers = this.users;
   }

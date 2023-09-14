@@ -37,7 +37,7 @@ export class MainComponent implements OnInit, OnDestroy {
       catchError((error: HttpErrorResponse) => {
         this.globals.spinner.hide();
         this.globals.toaster.showError(error.message);
-        throw error; // Rethrow the error to propagate it further if needed
+        throw error;
       })
     ).subscribe();
   }

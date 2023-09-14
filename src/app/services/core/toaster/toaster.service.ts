@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
   providedIn: 'root'
 })
 export class ToasterService {
-  
+
   constructor(private toaster: ToastrService) { }
 
   showSuccess(message: string, title?: string) {
@@ -13,7 +13,9 @@ export class ToasterService {
   }
 
   showError(message: string, title?: string) {
-    this.toaster.error(message, title);
+    this.toaster.error(message, title, {
+      timeOut: 3000
+    });
   }
 
   showInfo(message: string, title?: string) {
