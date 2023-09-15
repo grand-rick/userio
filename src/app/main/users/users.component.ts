@@ -33,6 +33,7 @@ export class UsersComponent implements OnInit {
 
 
   editUser(user: User): void {
+    if (!user.name.firstname || !user.role || !user.email) return;
     this.usersService.filteredUsers.update((users: User[]) => users.map((u: User) => u.id === user.id && u.username === user.username ? user : u));
     this.globals.toaster.showSuccess('User updated successfully');
 

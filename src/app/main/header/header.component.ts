@@ -23,6 +23,8 @@ export class HeaderComponent {
   }
 
   addNewUser(newUser: NewUser): void {
+    if (!newUser.firstName || !newUser.role || !newUser.email) return;
+    
     const addedUser = this.usersService.addNewUser(newUser);
     this.usersService.getAllUsers.update((user: User[]) => [addedUser, ...user]);
     this.globals.toaster.showSuccess('User added successfully');
