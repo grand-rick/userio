@@ -44,51 +44,17 @@ export class UsersService {
     return this.globals.http.request<User[]>(request);
   }
 
-  addNewUser(newUser: NewUser): Observable<User> {
-    const addedUser: User = {
-      id: 0,
-      email: newUser.email,
-      username: 'username',
-      password: 'password',
-      name: {
-        firstname: newUser.firstName,
-        lastname: 'lastname'
-      },
-      role: newUser.role,
-      phone: 'phone',
-      __v: 0,
-      address: {
-        geolocation: {
-          lat: '0',
-          long: '0'
-        },
-        city: 'string',
-        street: 'string',
-        number: 0,
-        zipcode: 'string'
-      }
-    }
-    
-    this.filteredUsers.update((user: User[]) => {
-      return [addedUser, ...user]
-    });
-
-    delete addedUser.role;
-
-    return this.globals.http.post<User>(this.config.apiEndpoint, addedUser);
+  addNewUser(addedUser: User): Observable<User> {
+    return this.globals.http.post<User>(`${this.config.apiEndpoint}/users`, addedUser);
   }
 
   
-  editUser(user: User): Observable<User> {
-    this.filteredUsers.update((users: User[]) => users.map((u: User) => u.id === user.id && u.username === user.username ? user : u));
-    
-    return this.globals.http.put<User>(this.config.apiEndpoint, user);
+  editUser(user: User): Observable<User> {    
+    return this.globals.http.put<User>(`${this.config.apiEndpoint}/users/${user.id}`, user);
   }
   
-  deleteUser(user: User): Observable<User> {
-    this.filteredUsers.update((users: User[]) => users.filter((u: User) => u !== user));
-    
-    return this.globals.http.delete<User>(`${this.config.apiEndpoint}/${user.id}`);
+  deleteUser(user: User): Observable<User> {    
+    return this.globals.http.delete<User>(`${this.config.apiEndpoint}/users/${user.id}p`);
   }
 }
 

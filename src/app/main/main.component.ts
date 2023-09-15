@@ -34,11 +34,6 @@ export class MainComponent implements OnInit, OnDestroy {
           this.usersService.setAllUsers(this.users);
           this.globals.spinner.hide();
         }
-      }),
-      catchError((error: HttpErrorResponse) => {
-        this.globals.spinner.hide();
-        this.globals.toaster.showError(error.message);
-        throw error;
       })
     ).subscribe();
   }

@@ -22,8 +22,40 @@ export class HeaderComponent {
 
   addNewUser(newUser: NewUser): void {
     if (!newUser.firstName || !newUser.role || !newUser.email) return;
-    this.usersService.addNewUser(newUser);
-    this.globals.toaster.showSuccess('User added successfully');
+
+    const addedUser: User = {
+      id: 0,
+      email: newUser.email,
+      username: 'username',
+      password: 'password',
+      name: {
+        firstname: newUser.firstName,
+        lastname: 'lastname'
+      },
+      phone: 'phone',
+      __v: 0,
+      address: {
+        geolocation: {
+          lat: '0',
+          long: '0'
+        },
+        city: 'string',
+        street: 'string',
+        number: 0,
+        zipcode: 'string'
+      }
+    }
+
+    // delete addedUser.role;
+    this.usersService.addNewUser(addedUser).subscribe((user: User) => {
+      if (user.id) {
+        this.usersService.filteredUsers.update((user: User[]) => {
+          addedUser.role = newUser.role;
+          return [addedUser, ...user]
+        });
+        this.globals.toaster.showSuccess('User added successfully');
+      }
+    });
   }
 
   searchUser(name: string): void {

@@ -35,16 +35,23 @@ export class UsersComponent implements OnInit {
   editUser(user: User): void {
     if (!user.name.firstname || !user.role || !user.email) return;
 
-    this.usersService.editUser(user);
-
-    this.globals.toaster.showSuccess('User updated successfully');
+    this.usersService.editUser(user).subscribe((user: User) => {
+      if (user.id) {
+        this.usersService.filteredUsers.update((users: User[]) => users.map((u: User) => u.id === user.id && u.username === user.username ? user : u));
+        this.globals.toaster.showSuccess('User updated successfully!');
+      }
+    });
   }
 
   deleteUser(isDeleteUser: boolean, user: User): void {
     if (!isDeleteUser) return;
 
-    this.usersService.deleteUser(user);
-    this.globals.toaster.showSuccess('User deleted successfully');
+    this.usersService.deleteUser(user).subscribe((user: User) => {
+      if (user.id) {
+        this.usersService.filteredUsers.update((users: User[]) => users.filter((u: User) => u !== user));
+        this.globals.toaster.showSuccess('User deleted successfully!');
+      }
+    });
 
     if ((this.page > 1) && (this.users().length % this.tableSize === 1)) {
       this.page++;
