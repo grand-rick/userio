@@ -1,4 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { User } from '../../types/User';
 
 @Component({
   selector: 'delete-user-modal',
@@ -7,7 +8,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 })
 export class DeleteUserModalComponent implements OnInit {
   @Output() deleteUserEvent = new EventEmitter<boolean>();
-
+  @Input({required: true}) user!: User;
   constructor() { }
 
   ngOnInit(): void {}

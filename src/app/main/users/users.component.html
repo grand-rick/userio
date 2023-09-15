@@ -8,7 +8,8 @@
             </tr>
         </thead>
         <tbody class="text-black">
-            <tr *ngFor="let user of users() | paginate: {
+            <tr 
+            *ngFor="let user of users() | paginate: {
                 itemsPerPage: tableSize,
                 currentPage: page,
                 totalItems: users().length
@@ -31,12 +32,15 @@
                     <edit-user-modal [user]="user" (editUser)="editUser($event)"></edit-user-modal>
                 </dialog>
                 <dialog id="deleteUserModal" #deleteUserModal class="modal">            
-                    <delete-user-modal (deleteUserEvent)="deleteUser($event, user)"></delete-user-modal>
+                    <delete-user-modal [user]="user" (deleteUserEvent)="deleteUser($event, user)"></delete-user-modal>
                 </dialog>
             </tr>
         </tbody>
     </table>
-    <div class="text-black">
+    <div class="flex justify-start items-start">
+        <select (change)="onTableSizeChange($event)" class="select select-primary w-1/8 h-1/4 text-black bg-slate-200 max-w-xs">
+            <option *ngFor="let size of tableSizes">{{size}}</option>
+        </select>
         <pagination-controls
             previousLabel="Prev"
             nextLabel="Next"

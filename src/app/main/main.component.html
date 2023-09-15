@@ -1,7 +1,7 @@
 <section id="users" class="flex flex-col justify-between">
     <app-header (searchUserEvent)="searchUser($event)"></app-header>
 
-    <users *ngIf="users.length; else elseBlock"></users>
+    <users class="mt-8" *ngIf="users.length; else elseBlock"></users>
 
     <ng-template #elseBlock>
         <div>

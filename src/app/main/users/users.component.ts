@@ -55,7 +55,6 @@ export class UsersComponent implements OnInit {
 
   onTableSizeChange(event: Event): void {
     const target = event.target as HTMLInputElement;
-    this.tableSize = +target.value;
     this.tableSize = +target?.value;
     this.page = 1;
   }
