@@ -1,4 +1,4 @@
-<div class="container mx-auto px-4 mb-3">
+<div class="container mx-auto px-4 py-5">
     <table class="table table-sm">
         <thead class="">
             <tr class="text-black">
@@ -37,7 +37,7 @@
             </tr>
         </tbody>
     </table>
-    <div class="flex justify-start items-start py-8">
+    <div class="flex justify-start items-start">
         <select (change)="onTableSizeChange($event)" class="select select-primary w-1/8 h-1/4 text-black bg-slate-200 max-w-xs">
             <option *ngFor="let size of tableSizes" [selected]="size === tableSize">{{size}}</option>
         </select>
