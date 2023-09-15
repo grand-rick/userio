@@ -47,10 +47,8 @@ export class UsersComponent implements OnInit {
     if (!isDeleteUser) return;
 
     this.usersService.deleteUser(user).subscribe((user: User) => {
-      if (user.id) {
-        this.usersService.filteredUsers.update((users: User[]) => users.filter((u: User) => u !== user));
-        this.globals.toaster.showSuccess('User deleted successfully!');
-      }
+      this.usersService.filteredUsers.update((users: User[]) => users.filter((u: User) => u !== user));
+      this.globals.toaster.showSuccess('User deleted successfully!');
     });
 
     if ((this.page > 1) && (this.users().length % this.tableSize === 1)) {
