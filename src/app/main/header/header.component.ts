@@ -22,15 +22,11 @@ export class HeaderComponent {
 
   addNewUser(newUser: NewUser): void {
     if (!newUser.firstName || !newUser.role || !newUser.email) return;
-    
-    const addedUser = this.usersService.addNewUser(newUser);
-    this.usersService.getAllUsers.update((user: User[]) => [addedUser, ...user]);
+    this.usersService.addNewUser(newUser);
     this.globals.toaster.showSuccess('User added successfully');
   }
 
   searchUser(name: string): void {
     this.usersService.searchUser(name);
-    console.log('ALL USERS', this.usersService.getAllUsers());
-    console.log('FILTERED USERS', this.usersService.filteredUsers()); 
   }
 }

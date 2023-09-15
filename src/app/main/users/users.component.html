@@ -37,7 +37,7 @@
             </tr>
         </tbody>
     </table>
-    <div class="flex justify-start items-start">
+    <div class="flex justify-start items-start mb-5 mt-5">
         <select (change)="onTableSizeChange($event)" class="select select-primary w-1/8 h-1/4 text-black bg-slate-200 max-w-xs">
             <option *ngFor="let size of tableSizes" [selected]="size === tableSize">{{size}}</option>
         </select>

@@ -44,7 +44,7 @@ export class UsersService {
     return this.globals.http.request<User[]>(request);
   }
 
-  addNewUser(newUser: NewUser): User {
+  addNewUser(newUser: NewUser): Observable<User> {
     const addedUser: User = {
       id: 0,
       email: newUser.email,
@@ -68,36 +68,27 @@ export class UsersService {
         zipcode: 'string'
       }
     }
-    // const request = new HttpRequest(
-    //   'POST',
-    //   `${this.config.apiEndpoint}/users`,
-    //   addedUser,
-    //   {
-    //     reportProgress: true
-    //   });
-    // return this.http.request<User>(request);
-    return addedUser;
+    
+    this.filteredUsers.update((user: User[]) => {
+      return [addedUser, ...user]
+    });
+
+    delete addedUser.role;
+
+    return this.globals.http.post<User>(this.config.apiEndpoint, addedUser);
   }
 
-  deleteUser(id: number): Observable<HttpEvent<User>> {
-    const request = new HttpRequest(
-      'DELETE',
-      `${this.config.apiEndpoint}/users/${id}`,
-      {
-        reportProgress: true
-      });
-    return this.globals.http.request<User>(request);
+  
+  editUser(user: User): Observable<User> {
+    this.filteredUsers.update((users: User[]) => users.map((u: User) => u.id === user.id && u.username === user.username ? user : u));
+    
+    return this.globals.http.put<User>(this.config.apiEndpoint, user);
   }
-
-  editUser(user: User): Observable<HttpEvent<User>> {
-    const request = new HttpRequest(
-      'PUT',
-      `${this.config.apiEndpoint}/users/${user.id}`,
-      user,
-      {
-        reportProgress: true
-      });
-    return this.globals.http.request<User>(request);
+  
+  deleteUser(user: User): Observable<User> {
+    this.filteredUsers.update((users: User[]) => users.filter((u: User) => u !== user));
+    
+    return this.globals.http.delete<User>(`${this.config.apiEndpoint}/${user.id}`);
   }
 }
 
