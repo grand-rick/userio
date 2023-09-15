@@ -39,7 +39,7 @@
     </table>
     <div class="flex justify-start items-start">
         <select (change)="onTableSizeChange($event)" class="select select-primary w-1/8 h-1/4 text-black bg-slate-200 max-w-xs">
-            <option *ngFor="let size of tableSizes">{{size}}</option>
+            <option *ngFor="let size of tableSizes" [selected]="size === tableSize">{{size}}</option>
         </select>
         <pagination-controls
             previousLabel="Prev"
