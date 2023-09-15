@@ -51,18 +51,6 @@ export class MainComponent implements OnInit, OnDestroy {
     });
   }
 
-  searchUser(name: string): void {
-    if (!name) {
-      this.getUsers();
-      return;
-    }
-    const filteredUsers = this.users.filter((user: User) => {
-      const firstName = `${user.name.firstname}`;
-      return firstName.toLowerCase().includes(name.toLowerCase());
-    });
-    this.usersService.filteredUsers.set(filteredUsers);
-  }
-
   ngOnDestroy(): void {
     if (this.subscription) {
       this.subscription.unsubscribe();

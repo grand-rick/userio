@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { GlobalService } from 'src/app/services/global/global.service';
 import { UsersService } from 'src/app/services/users/users.service';
 import { NewUser, User } from 'src/app/shared/types/User';
@@ -11,8 +11,6 @@ import { NewUser, User } from 'src/app/shared/types/User';
 export class HeaderComponent {
   private globals: GlobalService = inject(GlobalService);
   private usersService: UsersService = inject(UsersService);
-
-  @Output() searchUserEvent: EventEmitter<string> = new EventEmitter<string>();
 
   searchItem: string = '';
 
@@ -31,6 +29,8 @@ export class HeaderComponent {
   }
 
   searchUser(name: string): void {
-    this.searchUserEvent.emit(name);
+    this.usersService.searchUser(name);
+    console.log('ALL USERS', this.usersService.getAllUsers());
+    console.log('FILTERED USERS', this.usersService.filteredUsers()); 
   }
 }

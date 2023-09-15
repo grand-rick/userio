@@ -13,12 +13,25 @@ export class UsersService {
   private globals: GlobalService = inject(GlobalService);
   
   getAllUsers: WritableSignal<User[]> = signal([]);
-  filteredUsers: WritableSignal<User[]> = this.getAllUsers;
+  filteredUsers: WritableSignal<User[]> = signal([]);
 
-  constructor(@Inject(APP_SERVICE_CONFIG) private config: AppConfig) { }
+  constructor(@Inject(APP_SERVICE_CONFIG) private config: AppConfig) {}
+
+  searchUser(name: string): void {
+    if (!name) {
+      this.filteredUsers.set(this.getAllUsers());
+      return;
+    }
+    const filteredUsers = this.filteredUsers().filter((user: User) => {
+      const firstName = `${user.name.firstname}`;
+      return firstName.toLowerCase().includes(name.toLowerCase());
+    });
+    this.filteredUsers.set(filteredUsers);
+  }
 
   setAllUsers(users: User[]): void {
     this.getAllUsers.set(users);
+    this.filteredUsers.set(users);
   }
     
   getUsers(): Observable<HttpEvent<User[]>> {
