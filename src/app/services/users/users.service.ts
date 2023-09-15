@@ -53,7 +53,8 @@ export class UsersService {
     return this.globals.http.put<User>(`${this.config.apiEndpoint}/users/${user.id}`, user);
   }
   
-  deleteUser(user: User): Observable<User> {    
+  deleteUser(user: User): Observable<User> {
+    this.filteredUsers.update((users: User[]) => users.filter((u: User) => u !== user));
     return this.globals.http.delete<User>(`${this.config.apiEndpoint}/users/${user.id}`);
   }
 }
