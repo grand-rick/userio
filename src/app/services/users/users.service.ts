@@ -54,7 +54,7 @@ export class UsersService {
   }
   
   deleteUser(user: User): Observable<User> {    
-    return this.globals.http.delete<User>(`${this.config.apiEndpoint}/users/${user.id}p`);
+    return this.globals.http.delete<User>(`${this.config.apiEndpoint}/users/${user.id}`);
   }
 }
 
