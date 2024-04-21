@@ -55,5 +55,6 @@
       "type": "image/png",
       "purpose": "maskable any"
     }
-  ]
+  ],
+  "prefer_related_applications": false
 }
